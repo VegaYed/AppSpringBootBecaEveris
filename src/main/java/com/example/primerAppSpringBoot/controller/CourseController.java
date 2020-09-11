@@ -21,16 +21,16 @@ public class CourseController {
     public ResponseEntity<Iterable<Course>>getAll(){
         return new ResponseEntity<Iterable<Course>>(repCourse.findAll(), HttpStatus.OK);
     }
-    /*@GetMapping(value = "course/{id}")
+    @GetMapping(value = "course/{id}")
     public ResponseEntity<Course>getCourseByPath(@PathVariable Integer id){
-        Course course = repCourse.findById(id);
-        return new ResponseEntity<Course>(course,HttpStatus.OK);
+        Optional<Course> course = repCourse.findById(id);
+        return course.map(value -> new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
     @PostMapping(value = "course/")
     public ResponseEntity<Course>getCourseByRequest(@RequestParam Integer id) {
-        Course course = repCourse.findById(id);
-        return new ResponseEntity<Course>(course, HttpStatus.OK);
-    }*/
+        Optional<Course> course = repCourse.findById(id);
+        return course.map(value -> new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
     @PostMapping(value = "courseB")
     public ResponseEntity<Course>getCourseByBody(@RequestBody Course courseRetrived) {
         Optional<Course> course = repCourse.findById(courseRetrived.getId());
