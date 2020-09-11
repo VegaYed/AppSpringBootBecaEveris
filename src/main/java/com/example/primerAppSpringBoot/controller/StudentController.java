@@ -35,21 +35,21 @@ public class StudentController {
         return new ResponseEntity<HttpStatus>(HttpStatus.CREATED);
     }
     @PostMapping(value = "pathVariable/{id}")
-    public ResponseEntity<Student>findCourse(@PathVariable Integer id){
+    public ResponseEntity<Student>getStudentByPath(@PathVariable Integer id){
+        Student rsp = new Student();
+        rsp = student.findById(id);
+        return new ResponseEntity<Student>(rsp, HttpStatus.OK);
+    }
+    @PostMapping(value = "requestParam/")
+    public ResponseEntity<Student>getStudentByRequest(@RequestParam Integer id){
         Student rsp = new Student();
         rsp = student.findById(id);
         return new ResponseEntity<Student>(rsp, HttpStatus.OK);
     }
     @PostMapping(value = "requestBody")
-    public ResponseEntity<Student>findCourse2(@RequestBody Student std){
+    public ResponseEntity<Student>getStudentByBody(@RequestBody Student std){
         Student rsp = new Student();
         rsp = student.findById(std.getId());
-        return new ResponseEntity<Student>(rsp, HttpStatus.OK);
-    }
-    @PostMapping(value = "requestParam/")
-    public ResponseEntity<Student>findCourse2(@RequestParam Integer id){
-        Student rsp = new Student();
-        rsp = student.findById(id);
         return new ResponseEntity<Student>(rsp, HttpStatus.OK);
     }
 
